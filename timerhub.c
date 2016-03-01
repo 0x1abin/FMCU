@@ -1,3 +1,23 @@
+/*************************************************************
+ *
+ * Copyright 2014 (c) 丰唐物联技术（深圳）有限公司
+ * All right reserved.
+ *
+ * FileName:        timerhub.c
+ * Description:     Softwave timer module
+ * Author:          Zibin Zheng
+ * CreateDate:      2016/3/1
+ * CurrentVersion:  V1.00
+ *
+ *=========================history============================
+ *
+ * Version:         V1.00
+ * Modify:          Zibin Zheng
+ * Date:            2016/3/1
+ * ChangeItems:     Create
+ *
+*************************************************************/
+
 #include timerhub.h
 
 static uint8_t pTask = 0;
@@ -12,7 +32,7 @@ static void (*pfunc_task[MAX_TASK])(void);
 **    IN  Timeout value (for Schedule tick)
 **    IN  Timeout function address  
 **--------------------------------------------------------------------------*/
-int8_t TimerCreate(uint16_t timerTicks, void(*pfunc)())
+int8_t TimerCreate(uint16_t timerTicks, void(*pfunc)(void))
 {
 	runTimer[pTask] = timerTicks;  //interval time
 	pfunc_task[pTask] = pfunc;     //new task func point
@@ -45,10 +65,10 @@ void TimerResume(uint8_t handle)
 **-----------------------------------------------------------------------*/
 void TimerTickPoll()
 {
+	static uint32_t tick = 0;
 	uint8_t i;
-	static uint32_t tick;
+	
 	tick++;
-
 	for(i=0; i<pTask; i++)
 	{
 		if(tick % runTimer[i] == 0)	//check timeout
@@ -59,4 +79,3 @@ void TimerTickPoll()
 	}
 }
 /*---------------------------------------------------------------------------*/
-

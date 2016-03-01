@@ -32,7 +32,7 @@ static uint8_t taskIndex = 0;
 int8_t TimerCreate( void(*pfuncTask)(void), uint16_t timerTicks)
 {
 	taskList[taskIndex].lock = 0;
-	taskList[taskIndex].timerTicks = timerTicks;  //interval time
+	taskList[taskIndex].period = timerTicks;  //interval time
 	taskList[taskIndex].pfuncTask = pfuncTask;    //new task func point
 	
 	if(++taskIndex <= MAX_TASK)        //task handle
@@ -68,7 +68,7 @@ void TimerTickPoll()
 	ticks++;
 	for(index=0; index<taskIndex; index++)
 	{
-		if(ticks % taskList[index].timerTicks == 0)	//check timeout
+		if(ticks % taskList[index].period == 0)	//check timeout
 		{
 			if(taskList[index].lock == 0)
 				taskList[index].pfuncTask();   //run the task

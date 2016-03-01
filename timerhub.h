@@ -12,10 +12,9 @@
 typedef struct _STASK
 {
 	uint8_t lock;
-	uint8_t timerTicks;
+	uint8_t period;
 	void (*pfuncTask)(void);
 }sTask;
-
 
 
 extern int8_t TimerCreate( void(*pfunc)(void), uint16_t timerTicks);

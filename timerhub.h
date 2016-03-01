@@ -9,12 +9,13 @@
 
 #define MAX_TASK    8
 
-typedef struct
+typedef struct _STASK
 {
 	uint8_t lock;
 	uint8_t timerTicks;
 	void (*pfuncTask)(void);
 }sTask;
+
 
 
 extern int8_t TimerCreate( void(*pfunc)(void), uint16_t timerTicks);

@@ -14,11 +14,11 @@ static void (*pfunc_task[MAX_TASK])(void);
 **--------------------------------------------------------------------------*/
 int8_t TimerCreate(uint16_t timerTicks, void(*pfunc)())
 {
-    runTimer[pTask] = timerTicks;  //interval time
-    pfunc_task[pTask] = pfunc;     //new task func point
+	runTimer[pTask] = timerTicks;  //interval time
+	pfunc_task[pTask] = pfunc;     //new task func point
 	taskActivate[pTask] = 1;
 
-    if(++pTask <= MAX_TASK)        //task handle
+	if(++pTask <= MAX_TASK)        //task handle
 		return (pTask-1);
 	else
 		return -1;
@@ -45,17 +45,17 @@ void TimerResume(uint8_t handle)
 **-----------------------------------------------------------------------*/
 void TimerTickPoll()
 {
-    uint8_t i;
-    static uint32_t tick;
-    tick++;
-	
-    for(i=0; i<pTask; i++)
-    {
-        if(tick % runTimer[i] == 0)	//check timeout
+	uint8_t i;
+	static uint32_t tick;
+	tick++;
+
+	for(i=0; i<pTask; i++)
+	{
+		if(tick % runTimer[i] == 0)	//check timeout
 		{
 			if(taskActivate[i] == 1)
 				(*pfunc_task[i])();		//run the task
 		}
-    }
+	}
 }
 /*---------------------------------------------------------------------------*/

@@ -1,6 +1,6 @@
 /*************************************************************
  *
- * Copyright 2016 (c) 丰唐物联技术（深圳）有限公司
+ * Copyright 2014 (c) 丰唐物联技术（深圳）有限公司
  * All right reserved.
  *
  * FileName:        timerhub.c
@@ -20,26 +20,23 @@
 
 #include "timerhub.h"
 
-static uint8_t pTask = 0;
-static uint8_t taskActivate[MAX_TASK];
-static uint16_t runTimer[MAX_TASK];
-static void (*pfunc_task[MAX_TASK])(void);
+static sTask taskList[MAX_TASK];
+static uint8_t taskIndex = 0;
 
-
-/*================================   TimerCreate   ============================
+/*===============================   TimerCreate   ============================
 **    Register a function that is called when the specified time has elapsed.
 **    RET Timer handle
 **    IN  Timeout value (for Schedule tick)
 **    IN  Timeout function address  
 **--------------------------------------------------------------------------*/
-int8_t TimerCreate(uint16_t timerTicks, void(*pfunc)(void))
+int8_t TimerCreate( void(*pfuncTask)(void), uint16_t timerTicks)
 {
-	runTimer[pTask] = timerTicks;  //interval time
-	pfunc_task[pTask] = pfunc;     //new task func point
-	taskActivate[pTask] = 1;
-
-	if(++pTask <= MAX_TASK)        //task handle
-		return (pTask-1);
+	taskList[taskIndex].lock = 0;
+	taskList[taskIndex].timerTicks = timerTicks;  //interval time
+	taskList[taskIndex].pfuncTask = pfuncTask;    //new task func point
+	
+	if(++taskIndex <= MAX_TASK)        //task handle
+		return (taskIndex-1);
 	else
 		return -1;
 }
@@ -49,7 +46,7 @@ int8_t TimerCreate(uint16_t timerTicks, void(*pfunc)(void))
 **-----------------------------------------------------------------------*/
 void TimerSuspend(uint8_t handle)
 {
-	taskActivate[handle] = 0;
+	taskList[handle].lock = 1;
 }
 
 /*==========================   TimerResume   ============================
@@ -57,7 +54,7 @@ void TimerSuspend(uint8_t handle)
 **-----------------------------------------------------------------------*/
 void TimerResume(uint8_t handle)
 {
-	taskActivate[handle] = 1;
+	taskList[handle].lock = 0;
 }
 
 /*==========================   TimerTickPoll   ============================
@@ -65,16 +62,16 @@ void TimerResume(uint8_t handle)
 **-----------------------------------------------------------------------*/
 void TimerTickPoll()
 {
-	static uint32_t tick = 0;
-	uint8_t i;
+	static uint32_t ticks = 0;
+	uint8_t index;
 	
-	tick++;
-	for(i=0; i<pTask; i++)
+	ticks++;
+	for(index=0; index<taskIndex; index++)
 	{
-		if(tick % runTimer[i] == 0)	//check timeout
+		if(ticks % taskList[index].timerTicks == 0)	//check timeout
 		{
-			if(taskActivate[i] == 1)
-				(*pfunc_task[i])();		//run the task
+			if(taskList[index].lock == 0)
+				taskList[index].pfuncTask();   //run the task
 		}
 	}
 }

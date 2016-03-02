@@ -26,4 +26,8 @@ extern void TimerTickPoll();
 
 #endif
 
+<<<<<<< HEAD
 //master
+=======
+//branch
+>>>>>>> loopRun

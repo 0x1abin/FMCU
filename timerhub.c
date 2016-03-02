@@ -1,6 +1,6 @@
 /*************************************************************
  *
- * Copyright 2014 (c) 丰唐物联技术（深圳）有限公司
+ * Copyright 2016 (c) 丰唐物联技术（深圳）有限公司
  * All right reserved.
  *
  * FileName:        timerhub.c
@@ -23,43 +23,101 @@
 static sTask taskList[MAX_TASK];
 static uint8_t taskIndex = 0;
 
-/*===============================   TimerCreate   ============================
-**    Register a function that is called when the specified time has elapsed.
-**    RET Timer handle
-**    IN  Timeout value (for Schedule tick)
-**    IN  Timeout function address  
-**--------------------------------------------------------------------------*/
+
+/*******************************************************************************
+* Function Name: TimerCreate
+********************************************************************************
+*
+* Summary:
+*  Register a function that is called when the specified time has elapsed.
+*
+* Parameters:
+*  pfuncTask:  Period call function poinit.
+*  timerTicks: Set the period time.
+*              (the unit time decide by call TimerTickPoll() interval time)
+*
+* Return:
+*  Timer handle.
+*
+* Global Variables:
+*  taskList[] - used to store the timer set.
+*  taskIndex  - count and index the task handle.
+*
+* Side Effects: 
+*  None.
+*
+*******************************************************************************/
 int8_t TimerCreate( void(*pfuncTask)(void), uint16_t timerTicks)
 {
 	taskList[taskIndex].lock = 0;
-	taskList[taskIndex].period = timerTicks;  //interval time
-	taskList[taskIndex].pfuncTask = pfuncTask;    //new task func point
+	taskList[taskIndex].period = timerTicks;   //interval time
+	taskList[taskIndex].pfuncTask = pfuncTask; //new task func point
 	
-	if(++taskIndex <= MAX_TASK)        //task handle
-		return (taskIndex-1);
+	if(++taskIndex <= MAX_TASK)
+		return (taskIndex-1);     //return the task handle
 	else
 		return -1;
 }
 
-/*==========================   TimerSuspend   ============================
-**  Suspend the Timer by handle
-**-----------------------------------------------------------------------*/
+/*******************************************************************************
+* Function Name: TimerSuspend
+********************************************************************************
+*
+* Summary:
+*  Suspend the Timer by handle.
+*
+* Parameters:
+*  handle: Timer handle.
+*
+* Global Variables:
+*  taskList[].lock - The timer task suspend flag.
+*
+*******************************************************************************/
 void TimerSuspend(uint8_t handle)
 {
 	taskList[handle].lock = 1;
 }
 
-/*==========================   TimerResume   ============================
-**  Resume the Timer by handle
-**-----------------------------------------------------------------------*/
+/*******************************************************************************
+* Function Name: TimerResume
+********************************************************************************
+*
+* Summary:
+*  Resume the Timer by handle.
+*
+* Parameters:
+*  handle: Timer handle.
+*
+* Global Variables:
+*  taskList[].lock - The timer task suspend flag.
+*
+*******************************************************************************/
 void TimerResume(uint8_t handle)
 {
 	taskList[handle].lock = 0;
 }
 
-/*==========================   TimerTickPoll   ============================
-**  looping execution this function in the hardwave timer
-**-----------------------------------------------------------------------*/
+/*******************************************************************************
+* Function Name: TimerTickPoll
+********************************************************************************
+*
+* Summary:
+*  looping execution this function in the hardwave timer.
+*
+* Parameters:
+*  None.
+*
+* Return:
+*  None.
+*
+* Global Variables:
+*  taskList[] - check the ticks count and execution the task.
+*  taskIndex  - index the task.
+*
+* Side Effects: 
+*  None.
+*
+*******************************************************************************/
 void TimerTickPoll()
 {
 	static uint32_t ticks = 0;

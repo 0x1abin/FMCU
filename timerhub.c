@@ -47,7 +47,7 @@ static uint8_t taskIndex = 0;
 *  None.
 *
 *******************************************************************************/
-int8_t TimerCreate( void(*pfuncTask)(void), uint16_t timerTicks)
+int8_t TimerCreate(void(*pfuncTask)(void), uint16_t timerTicks)
 {
 	taskList[taskIndex].lock = 0;
 	taskList[taskIndex].period = timerTicks;   //interval time
@@ -128,9 +128,11 @@ void TimerTickPoll()
 	{
 		if(ticks % taskList[index].period == 0)	//check timeout
 		{
-			if(taskList[index].lock == 0)
-				taskList[index].pfuncTask();   //run the task
+			if(taskList[index].lock)		          //check the suspend flag
+				taskList[index].pfuncTask();        //run the task
 		}
 	}
 }
-/*---------------------------------------------------------------------------*/
+
+
+

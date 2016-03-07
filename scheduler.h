@@ -27,7 +27,7 @@ extern void SCH_Dispatch_Tasks(void);
 
 #define SCH_MAX_TASKS 		5
 
-#define TimerCreate			SCH_Add_Task
+#define TimerStart			SCH_Add_Task
 #define TimerDelete			SCH_Delete_Task
 #define TimerUpdate			SCH_Update
 #define TimerRunning		SCH_Dispatch_Tasks

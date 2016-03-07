@@ -46,7 +46,7 @@ uint8_t SCH_Add_Task(void (*pFuntion)(void),
 *******************************************************************************************/
 void SCH_Delete_Task(uint8_t index)
 {
-	SCH_task_G[index].pTask = NULL;
+	SCH_task_G[index].pTask = 0;
 	SCH_task_G[index].Delay = 0;
 	SCH_task_G[index].Period = 0;
 	SCH_task_G[index].RunMe = 0;

@@ -4,7 +4,8 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-static sTask SCH_task_G[SCH_MAX_TASKS]; /*建立的任务数*/
+volatile static sTask SCH_task_G[SCH_MAX_TASKS]; /*建立的任务数*/
+volatile static uint32_t timerTicks = 0;
 
 /* Public  variables ---------------------------------------------------------*/
 
@@ -63,6 +64,10 @@ void SCH_Delete_Task(uint8_t index)
 void SCH_Update(void)
 {
 	uint8_t index;
+	
+	/*滴答定时器，提供延时函数基准*/
+	timerTicks++;
+	
 	/*注意计数单位是时标，不是毫秒*/
 	for(index = 0; index < SCH_MAX_TASKS; index++)
 	{
@@ -72,7 +77,7 @@ void SCH_Update(void)
 			if(SCH_task_G[index].Delay == 0)
 			{
 				/*任务需要运行 将 RunMe 置 1*/
-				SCH_task_G[index].RunMe += 1;
+				SCH_task_G[index].RunMe++;
 				if(SCH_task_G[index].Period)
 				{
 					/*调度周期性的任务再次执行*/
@@ -82,7 +87,7 @@ void SCH_Update(void)
 			else
 			{
 				/*还有准备好运行*/
-				SCH_task_G[index].Delay -= 1;
+				SCH_task_G[index].Delay--;
 			}
 		}
 	}
@@ -114,3 +119,16 @@ void SCH_Dispatch_Tasks(void)
 		}
 	}
 }
+
+/*******************************************************************************************
+* 函 数 名: HAL_Delay
+* 功能说明: 定时器延时函数。
+* 形 参：   ms
+* 返 回 值: 无
+*******************************************************************************************/
+void HAL_Delay(uint16_t tms)
+{
+	uint32 setTime = timerTicks + tms;
+	while(setTime-timerTicks > 0){}
+}
+

@@ -1,10 +1,6 @@
 #ifndef _LED_DRIVER_H_
 #define _LED_DRIVER_H_
 
-#include <ZW_pindefs.h>
-#include <ZW_typedefs.h>
-#include <ZW_basis_api.h>
-#include <ZW_led_api.h>
 
 #define uint8			BYTE
 #define uint16		WORD
@@ -50,15 +46,22 @@ typedef struct __LED_STATE_T_
 	void (*SetDutyOfPWM)(uint8_t hDuty);
 }LED_STATE_T;
 
+#ifdef __cplusplus  
+extern "C" {  
+#endif  
 
-extern void LED_Reset(LED_NAME_T led);
-extern void LED_Init(LED_NAME_T led, void (*pwmDutySet)(uint8_t duty));
-extern void LED_SetTimerOff(LED_NAME_T led, uint16_t tms);
-extern void LED_SetBrightness(LED_NAME_T led, uint8_t hDuty);
-extern uint8_t LED_GetBrightness(LED_NAME_T led);
-extern void LED_SetBlink(LED_NAME_T led, float duty, uint16_t period);
-extern void LED_Dimming(LED_NAME_T led, int8_t targetLevel, float duration);
-extern void LED_Task_Ticks();
+extern void     LED_Reset         (LED_NAME_T led);
+extern void     LED_Init          (LED_NAME_T led, void (*pwmDutySet)(uint8_t duty));
+extern void     LED_SetTimerOff   (LED_NAME_T led, uint16_t tms);
+extern void     LED_SetBrightness (LED_NAME_T led, uint8_t hDuty);
+extern uint8_t  LED_GetBrightness (LED_NAME_T led);
+extern void     LED_SetBlink      (LED_NAME_T led, float duty, uint16_t period);
+extern void     LED_Dimming       (LED_NAME_T led, int8_t targetLevel, float duration);
+extern void     LED_Task_Ticks    (void);
+
+#ifdef __cplusplus  
+} 
+#endif  
 
 
 #endif

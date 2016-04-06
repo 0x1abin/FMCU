@@ -24,14 +24,17 @@ uint8_t TimerCreate(void (*pFuntion)(void),
                     uint16_t period)
 {
 	uint8_t index = 0; /*首先在队列中找到一个空隙，（如果有的话） */
+	
 	while((tasksList[index].pTask != 0) && (index <SCH_MAX_TASKS))
 	{
 		index++;
 	}
+	
 	if(index == SCH_MAX_TASKS)/*超过最大的任务数目 则返错误信息*/
 	{
 		return SCH_MAX_TASKS;
 	}
+	
 	tasksList[index].pTask  = pFuntion; /*运行到这里说明申请的任务块成功*/
 	tasksList[index].delay  = delay;
 	tasksList[index].period = period;

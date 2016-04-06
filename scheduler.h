@@ -25,8 +25,8 @@ extern uint8_t SCH_Add_Task(void (*pFuntion)(void), uint16_t DELAY, uint16_t PER
 extern void SCH_Delete_Task(uint8_t index);
 extern void SCH_Update(void);
 extern void SCH_Dispatch_Tasks(void);
-
 extern void HAL_Delay(uint16_t tms);
+
 #ifdef __cplusplus  
 } 
 #endif  

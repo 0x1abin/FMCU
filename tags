@@ -1,0 +1,89 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BOOL	led_driver.h	11;"	d
+Delay	scheduler.h	/^	uint16_t Delay;   \/*延时（时标）知道下一个函数的运行*\/$/;"	m	struct:__anon2
+HAL_Delay	scheduler.c	/^void HAL_Delay(uint16_t tms)$/;"	f
+LED_BLINK_MASK	led_driver.h	15;"	d
+LED_BLINK_T	led_driver.h	/^}LED_BLINK_T;$/;"	t	typeref:struct:__LED_BLINK_T_
+LED_DIMMING_MASK	led_driver.h	14;"	d
+LED_DIMMING_T	led_driver.h	/^}LED_DIMMING_T;$/;"	t	typeref:struct:__LED_DIMMING_T_
+LED_Dimming	led_driver.c	/^void LED_Dimming(LED_NAME_T led, int8_t targetLevel, float duration)	\/\/0~100%, duration*10ms$/;"	f
+LED_GetBrightness	led_driver.c	/^uint8_t LED_GetBrightness(LED_NAME_T led)$/;"	f
+LED_Init	led_driver.c	/^void LED_Init(LED_NAME_T led, void (*pwmDutySet)(uint8_t duty))$/;"	f
+LED_NAME_T	led_driver.h	/^}LED_NAME_T;$/;"	t	typeref:enum:__anon1
+LED_Reset	led_driver.c	/^void LED_Reset(LED_NAME_T led)$/;"	f
+LED_STATE_T	led_driver.h	/^}LED_STATE_T;$/;"	t	typeref:struct:__LED_STATE_T_
+LED_SetBlink	led_driver.c	/^void LED_SetBlink(LED_NAME_T led, float duty, uint16_t period)$/;"	f
+LED_SetBrightness	led_driver.c	/^void LED_SetBrightness(LED_NAME_T led, uint8_t hDuty)$/;"	f
+LED_SetTimerOff	led_driver.c	/^void LED_SetTimerOff(LED_NAME_T led, uint16_t tms)$/;"	f
+LED_TIMER_MASK	led_driver.h	13;"	d
+LED_Task_Ticks	led_driver.c	/^void LED_Task_Ticks()$/;"	f
+MACRO_ABS	led_driver.c	3;"	d	file:
+MAX_TASK	timerhub.h	12;"	d
+NUMBER_OF_LEDS	led_driver.h	/^  NUMBER_OF_LEDS	\/\/!< NUMBER_OF_LEDS$/;"	e	enum:__anon1
+Period	scheduler.h	/^	uint16_t Period;  \/*连续运行之间的间隔*\/$/;"	m	struct:__anon2
+RunMe	scheduler.h	/^	uint8_t RunMe;    \/*当任务需要运行的时候由调度器加 1*\/$/;"	m	struct:__anon2
+SCH_Add_Task	scheduler.c	/^uint8_t SCH_Add_Task(void (*pFuntion)(void),$/;"	f
+SCH_Delete_Task	scheduler.c	/^void SCH_Delete_Task(uint8_t index)$/;"	f
+SCH_Dispatch_Tasks	scheduler.c	/^void SCH_Dispatch_Tasks(void)$/;"	f
+SCH_MAX_TASKS	scheduler.h	11;"	d
+SCH_Update	scheduler.c	/^void SCH_Update(void)$/;"	f
+SCH_task_G	scheduler.c	/^volatile static sTask SCH_task_G[SCH_MAX_TASKS]; \/*建立的任务数*\/$/;"	v	file:
+SetDutyOfPWM	led_driver.h	/^	void (*SetDutyOfPWM)(uint8_t hDuty);$/;"	m	struct:__LED_STATE_T_
+TimerCreate	timerhub.c	/^int8_t TimerCreate(void(*pfuncTask)(void), uint16_t timerTicks)$/;"	f
+TimerDelete	scheduler.h	36;"	d
+TimerResume	timerhub.c	/^void TimerResume(uint8_t handle)$/;"	f
+TimerStart	scheduler.h	35;"	d
+TimerSuspend	timerhub.c	/^void TimerSuspend(uint8_t handle)$/;"	f
+TimerTasksExecute	scheduler.h	38;"	d
+TimerTickPoll	timerhub.c	/^void TimerTickPoll()$/;"	f
+TimerUpdate	scheduler.h	37;"	d
+_LED_DRIVER_H_	led_driver.h	2;"	d
+_SCHEDULER_H_	scheduler.h	2;"	d
+_STASK	timerhub.h	/^typedef struct _STASK$/;"	s
+_TIMERHUB_H_	timerhub.h	2;"	d
+__LED_BLINK_T_	led_driver.h	/^typedef struct __LED_BLINK_T_$/;"	s
+__LED_DIMMING_T_	led_driver.h	/^typedef struct __LED_DIMMING_T_$/;"	s
+__LED_STATE_T_	led_driver.h	/^typedef struct __LED_STATE_T_$/;"	s
+bState	led_driver.h	/^	uint8_t bState;$/;"	m	struct:__LED_STATE_T_
+blink	led_driver.h	/^	LED_BLINK_T blink;$/;"	m	struct:__LED_STATE_T_
+bool	timerhub.h	9;"	d
+brightness	led_driver.h	/^	uint8_t brightness;$/;"	m	struct:__LED_STATE_T_
+count	led_driver.h	/^	uint16_t count;$/;"	m	struct:__LED_BLINK_T_
+currentLevel	led_driver.h	/^	uint8_t currentLevel;$/;"	m	struct:__LED_DIMMING_T_
+dimming	led_driver.h	/^	LED_DIMMING_T dimming;$/;"	m	struct:__LED_STATE_T_
+incDecVal	led_driver.h	/^	int8_t incDecVal;$/;"	m	struct:__LED_DIMMING_T_
+int8_t	timerhub.h	8;"	d
+ledsList	led_driver.c	/^static LED_STATE_T ledsList[NUMBER_OF_LEDS];$/;"	v	file:
+lock	timerhub.h	/^	bool lock;$/;"	m	struct:_STASK
+pTask	scheduler.h	/^	void (*pTask)();	\/*指向任务的指针必须是一个*void(void)*函数；*\/$/;"	m	struct:__anon2
+period	led_driver.h	/^	uint16_t period;$/;"	m	struct:__LED_BLINK_T_
+period	timerhub.h	/^	uint16_t period;$/;"	m	struct:_STASK
+pfuncTask	timerhub.h	/^	void (*pfuncTask)(void);$/;"	m	struct:_STASK
+pulse	led_driver.h	/^	uint16_t pulse;$/;"	m	struct:__LED_BLINK_T_
+sTask	scheduler.h	/^} sTask;$/;"	t	typeref:struct:__anon2
+sTask	timerhub.h	/^}sTask;$/;"	t	typeref:struct:_STASK
+targetLevel	led_driver.h	/^	uint8_t targetLevel;$/;"	m	struct:__LED_DIMMING_T_
+taskIndex	timerhub.c	/^static uint8_t taskIndex = 0;$/;"	v	file:
+taskList	timerhub.c	/^static sTask taskList[MAX_TASK];$/;"	v	file:
+ticksCount	led_driver.h	/^	uint16_t ticksCount;$/;"	m	struct:__LED_DIMMING_T_
+ticksCountReload	led_driver.h	/^	uint16_t ticksCountReload;$/;"	m	struct:__LED_DIMMING_T_
+ticksTimeout	led_driver.h	/^	uint16_t ticksTimeout;$/;"	m	struct:__LED_STATE_T_
+timerTicks	scheduler.c	/^volatile static uint32_t timerTicks = 0;$/;"	v	file:
+uint16	led_driver.h	10;"	d
+uint16_t	scheduler.h	8;"	d
+uint16_t	timerhub.h	6;"	d
+uint32_t	scheduler.h	9;"	d
+uint32_t	timerhub.h	7;"	d
+uint8	led_driver.h	9;"	d
+uint8_t	scheduler.h	7;"	d
+uint8_t	timerhub.h	5;"	d
+xLED1	led_driver.h	/^  xLED1 = 0,$/;"	e	enum:__anon1
+xLED2	led_driver.h	/^	xLED2,$/;"	e	enum:__anon1
+xLED3	led_driver.h	/^	xLED3,$/;"	e	enum:__anon1
+xLED4	led_driver.h	/^	xLED4,$/;"	e	enum:__anon1
+xLED5	led_driver.h	/^	xLED5,$/;"	e	enum:__anon1

@@ -33,6 +33,7 @@ extern void HAL_Delay(uint16_t tms);
 
 
 #define TimerStart					SCH_Add_Task
+#define TimerCreate					SCH_Add_Task
 #define TimerDelete					SCH_Delete_Task
 #define TimerUpdate					SCH_Update
 #define TimerTasksExecute		SCH_Dispatch_Tasks

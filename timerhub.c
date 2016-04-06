@@ -128,7 +128,7 @@ void TimerTasksExecute(void)
 *******************************************************************************************/
 void TimerDelay(uint16_t tms)
 {
-	uint32 setTime = timerTicks + tms;
+	uint32_t setTime = timerTicks + tms;
 	while(setTime-timerTicks > 0){}
 }
 

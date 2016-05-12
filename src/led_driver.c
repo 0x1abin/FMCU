@@ -141,8 +141,7 @@ void LED_Task_Ticks()
 				if(--ledsList[index].dimming.ticksCount <= 0)
 				{
 					ledsList[index].dimming.ticksCount = ledsList[index].dimming.ticksCountReload;
-					ledsList[index].dimming.currentLevel = (uint8_t)(ledsList[index].dimming.incDecVal + 
-																								 (int8_t)ledsList[index].dimming.currentLevel);
+					ledsList[index].dimming.currentLevel = (uint8_t)(ledsList[index].dimming.incDecVal +  (int8_t)ledsList[index].dimming.currentLevel);
 					ledsList[index].brightness = ledsList[index].dimming.currentLevel;
 				}
 			}

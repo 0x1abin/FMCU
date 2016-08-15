@@ -84,10 +84,10 @@ void LED_SetBlink(LED_NAME_T led, float duty, uint16_t period)
   */
 void LED_Dimming(LED_NAME_T led, int8_t targetLevel, float duration)	//0~100%, duration*10ms
 {	
-	uint16_t durationTicks = duration * 100;
+	int16_t durationTicks = duration * 100;
 	
-	float dimSpeed = (float)((int16_t)targetLevel - ledsList[led].dimming.currentLevel) / (durationTicks);
-	pc.printf("dimSpeed = %f,\r\n",dimSpeed);
+	float dimSpeed = (float)((int16_t)targetLevel - (int16_t)ledsList[led].dimming.currentLevel) / (durationTicks);
+//	pc.printf("dimSpeed = %f,\r\n",dimSpeed);
 	
 	if(MACRO_ABS(dimSpeed) < 1)
 	{
@@ -98,7 +98,7 @@ void LED_Dimming(LED_NAME_T led, int8_t targetLevel, float duration)	//0~100%, d
 	{
 		//for current % dimspeed == 0
 		while((MACRO_ABS((int16_t)ledsList[led].dimming.targetLevel - 
-				ledsList[led].dimming.currentLevel)) % (uint8_t)dimSpeed != 0)
+				ledsList[led].dimming.currentLevel)) % (int8_t)dimSpeed != 0)
 		{
 			ledsList[led].dimming.currentLevel++;
 		}

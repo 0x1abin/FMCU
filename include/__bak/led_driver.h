@@ -3,7 +3,7 @@
 
 
 #define uint8			BYTE
-#define uint16		WORD
+#define uint16			WORD
 #define BOOL			bit
 
 #define LED_TIMER_MASK			0X80
@@ -12,12 +12,12 @@
 
 typedef enum
 {
-  xLED1 = 0,
+	xLED1 = 0,
 	xLED2,
 	xLED3,
 	xLED4,
 	xLED5,
-  NUMBER_OF_LEDS	//!< NUMBER_OF_LEDS
+	NUMBER_OF_LEDS	//!< NUMBER_OF_LEDS
 }LED_NAME_T;
 
 typedef struct __LED_BLINK_T_

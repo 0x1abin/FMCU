@@ -22,10 +22,10 @@ typedef struct
 extern "C" {  
 #endif  
 
-extern uint8_t  TimerCreate       (void (*pFuntion)(void), uint16_t delay,  uint16_t period);			
+extern uint8_t  TimerCreate       (void (*pFuntion)(void), uint16_t delay,  uint16_t period);
 extern void     TimerDelete       (uint8_t index);
 extern void     TimerUpdate       (void);
-extern void     TimerTasksExecute (void);
+extern void     TimerDispatchTasks(void);
 extern void     TimerDelay        (uint16_t tms);
 
 #ifdef __cplusplus  
